@@ -28,39 +28,45 @@ export default function Listings({
     <Card>
       <Card.Img variant="top" src={imgSrc} />
       <Card.Body>
-        <Card.Title>{listing.title}</Card.Title>
-        <Card.Text>
-          <Container>
-            <Row>
-              <Col>{listing.user.first_name}</Col>
-              <Col>
-                <StarFill color="gold" />
-                {listing.user.rating.rating}
-              </Col>
-            </Row>
-            <Row>
-              <Col><GeoAlt /> {listing.location.distance}mi</Col>
-              <Col><Eye /> {listing.reactions.views}</Col>
-            </Row>
-          </Container>
-        </Card.Text>
+        <Card.Title>
+          <h5>{listing.title}</h5>
+        </Card.Title>
 
-        {!viewing && <Button variant="primary" onClick={onClickView}>View</Button>}
+        <Container>
+          <Row>
+            <Col>{listing.user.first_name}</Col>
+            <Col>
+              <StarFill color="gold" />
+              {listing.user.rating.rating}
+            </Col>
+          </Row>
 
-        {viewing && (
-          <Container>
-            <Row>{listing.description}</Row>
-            <Row>{listing.collection_notes}</Row>
+          <Row>
+            <Col><GeoAlt /> {listing.location.distance}mi</Col>
+            <Col><Eye /> {listing.reactions.views}</Col>
+          </Row>
+
+          {!viewing && (
             <Row>
-              <Col>
-                <Button variant="primary" onClick={() => alert("You'll be able to request items soon!")}>Request this item</Button>
-              </Col>
-              <Col>
-                <Button variant="primary" onClick={onViewListing}>Close</Button>
-              </Col>
+              <Button variant="primary" onClick={onClickView}>View</Button>
             </Row>
-          </Container>
-        )}
+          )}
+
+          {viewing && (
+            <>
+              <Row>{listing.description}</Row>
+              <Row>{listing.collection_notes}</Row>
+              <Row>
+                <Col>
+                  <Button variant="primary" onClick={() => alert("You'll be able to request items soon!")}>Request this item</Button>
+                </Col>
+                <Col>
+                  <Button variant="primary" onClick={onViewListing}>Close</Button>
+                </Col>
+              </Row>
+            </>
+          )}
+        </Container>
       </Card.Body>
     </Card>
   );
