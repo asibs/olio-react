@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Listing } from '../types';
+import ListingCard from './ListingCard';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -23,16 +24,7 @@ export default function Listings({
         {listings.map((l) => {
           return (
             <Col key={l.id}>
-              <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src="holder.js/100px180" />
-                <Card.Body>
-                  <Card.Title>{l.title}</Card.Title>
-                  <Card.Text>
-                    {l.description}
-                  </Card.Text>
-                  <Button variant="primary">View</Button>
-                </Card.Body>
-              </Card>
+              <ListingCard listing={l} />
             </Col>
           );
         })}
