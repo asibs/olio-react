@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Listing } from '../types';
+import Listings from './Listings';
 import Alert from 'react-bootstrap/Alert';
 import Container from 'react-bootstrap/Container';
 import Spinner from 'react-bootstrap/Spinner';
@@ -31,7 +32,7 @@ export default function App() {
   }, []);
 
   return (
-    <Container>
+    <Container className="py-4">
       {loading && (
         <Spinner animation="border" role="status">
           <span className="visually-hidden">Loading...</span>
@@ -45,7 +46,7 @@ export default function App() {
       )}
 
       {!loading && !error && (
-        <p>Got {listings.length} listings!</p>
+        <Listings listings={listings} />
       )}
     </Container>
   );
