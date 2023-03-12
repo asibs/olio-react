@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Listing } from '../types';
+import ListingsListView from './ListingsListView';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 
@@ -11,6 +12,10 @@ export default function Listings({ listings }: Props) {
   const [mapView, setMapView] = useState(false); // Default to list view
   const [viewedListingIds, setViewedListingIds] = useState<string[]>([]);
 
+  const addViewedListingId = (id: string) => {
+    setViewedListingIds(previousViewedListingIds => [...previousViewedListingIds, id]);
+  }
+
   return (
     <Tabs
       id="listings-tabs"
@@ -18,7 +23,11 @@ export default function Listings({ listings }: Props) {
       className="mb-3"
     >
       <Tab eventKey="list-view" title="List View">
-        <p>Coming soon...!</p>
+        <ListingsListView
+          listings={listings}
+          viewedListingIds={viewedListingIds}
+          onViewListing={addViewedListingId}
+        />
       </Tab>
       <Tab eventKey="map-view" title="Map View">
         <p>Coming soon...!</p>
