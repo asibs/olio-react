@@ -9,17 +9,23 @@ import { Eye, GeoAlt, StarFill } from 'react-bootstrap-icons';
 
 interface Props {
   listing: Listing;
+  onViewListing: () => void;
 }
 
 export default function Listings({
   listing,
+  onViewListing,
 }: Props) {
+  const [viewing, setViewing] = useState(false);
+
+  const onClickView = () => {
+    setViewing(true);
+  };
+
   const imgSrc = (listing.photos.length > 0) ? listing.photos[0].files.medium : 'holder.js/100px180';
 
-  console.log(listing);
-
   return (
-    <Card style={{ width: '18rem' }}>
+    <Card>
       <Card.Img variant="top" src={imgSrc} />
       <Card.Body>
         <Card.Title>{listing.title}</Card.Title>
@@ -38,7 +44,23 @@ export default function Listings({
             </Row>
           </Container>
         </Card.Text>
-        <Button variant="primary">View</Button>
+
+        {!viewing && <Button variant="primary" onClick={onClickView}>View</Button>}
+
+        {viewing && (
+          <Container>
+            <Row>{listing.description}</Row>
+            <Row>{listing.collection_notes}</Row>
+            <Row>
+              <Col>
+                <Button variant="primary" onClick={() => alert("You'll be able to request items soon!")}>Request this item</Button>
+              </Col>
+              <Col>
+                <Button variant="primary" onClick={onViewListing}>Close</Button>
+              </Col>
+            </Row>
+          </Container>
+        )}
       </Card.Body>
     </Card>
   );

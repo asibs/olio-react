@@ -10,9 +10,9 @@ interface Props {
 
 export default function Listings({ listings }: Props) {
   const [mapView, setMapView] = useState(false); // Default to list view
-  const [viewedListingIds, setViewedListingIds] = useState<string[]>([]);
+  const [viewedListingIds, setViewedListingIds] = useState<number[]>([]);
 
-  const addViewedListingId = (id: string) => {
+  const addViewedListingId = (id: number) => {
     setViewedListingIds(previousViewedListingIds => [...previousViewedListingIds, id]);
   }
 
@@ -24,8 +24,7 @@ export default function Listings({ listings }: Props) {
     >
       <Tab eventKey="list-view" title="List View">
         <ListingsListView
-          listings={listings}
-          viewedListingIds={viewedListingIds}
+          listings={listings.filter((l) => !viewedListingIds.includes(l.id))}
           onViewListing={addViewedListingId}
         />
       </Tab>

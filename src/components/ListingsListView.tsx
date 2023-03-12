@@ -9,13 +9,11 @@ import Card from 'react-bootstrap/Card';
 
 interface Props {
   listings: Listing[];
-  viewedListingIds: string[];
-  onViewListing: (id: string) => void;
+  onViewListing: (id: number) => void;
 }
 
 export default function Listings({
   listings,
-  viewedListingIds,
   onViewListing,
 }: Props) {
   return (
@@ -24,7 +22,10 @@ export default function Listings({
         {listings.map((l) => {
           return (
             <Col key={l.id}>
-              <ListingCard listing={l} />
+              <ListingCard
+                listing={l}
+                onViewListing={() => onViewListing(l.id)}
+              />
             </Col>
           );
         })}
