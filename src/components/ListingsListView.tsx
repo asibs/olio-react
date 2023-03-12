@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Listing } from '../types';
 import ListingCard from './ListingCard';
 import Container from 'react-bootstrap/Container';

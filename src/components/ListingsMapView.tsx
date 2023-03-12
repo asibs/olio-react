@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ListingCard from './ListingCard';
 import { Listing } from '../types';
 import L from 'leaflet';
@@ -13,7 +13,6 @@ const DefaultIcon = L.icon({
     iconUrl: icon,
     shadowUrl: iconShadow
 });
-
 L.Marker.prototype.options.icon = DefaultIcon;
 
 interface Props {
