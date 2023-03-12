@@ -46,7 +46,7 @@ export default function App() {
       )}
 
       {!loading && !error && (
-        <Listings listings={listings} />
+        <Listings listings={listings} renderMap={true} />
       )}
     </Container>
   );

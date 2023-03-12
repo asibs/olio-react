@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { Listing } from '../types';
 import ListingsListView from './ListingsListView';
+import ListingsMapView from './ListingsMapView';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 
 interface Props {
   listings: Listing[];
+  renderMap?: boolean;
 }
 
-export default function Listings({ listings }: Props) {
-  const [mapView, setMapView] = useState(false); // Default to list view
+export default function Listings({ listings, renderMap = false }: Props) {
   const [viewedListingIds, setViewedListingIds] = useState<number[]>([]);
+
+  const visibleListings = listings.filter((l) => !viewedListingIds.includes(l.id));
 
   const addViewedListingId = (id: number) => {
     setViewedListingIds(previousViewedListingIds => [...previousViewedListingIds, id]);
@@ -24,12 +27,18 @@ export default function Listings({ listings }: Props) {
     >
       <Tab eventKey="list-view" title="List View">
         <ListingsListView
-          listings={listings.filter((l) => !viewedListingIds.includes(l.id))}
+          listings={visibleListings}
           onViewListing={addViewedListingId}
         />
       </Tab>
       <Tab eventKey="map-view" title="Map View">
-        <p>Coming soon...!</p>
+        {!renderMap && <p>Coming Soon!</p>}
+        {renderMap && (
+          <ListingsMapView
+            listings={visibleListings}
+            onViewListing={addViewedListingId}
+          />
+        )}
       </Tab>
     </Tabs>
   );
